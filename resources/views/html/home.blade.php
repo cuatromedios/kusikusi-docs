@@ -2,6 +2,9 @@
 @section('title', $entity->title)
 @section('description', $entity->description)
 @section('main')
+    <!-- <p>{{$website->properties['donate']}}</p> -->
+    <p>{{$website->properties['github']}}</p>
+    <p>{{$website->properties['cuatromedios']}}</p>
     <h2>{{ $entity->title }}</h2>
     @if($media->isNotEmpty())
         <div class="hero-slider">
@@ -12,7 +15,10 @@
     @endif
 
     <p>{{ $entity->welcome }}</p>
-    <ul>
+    <h2>{{ $feature->title }}</h2>
+    <p>{{ $feature->description }}</p>
+ 
+    <!-- <ul>
         @forelse ($children as $child)
            <li>
                <a href="{{ $child->route }}">
@@ -23,5 +29,5 @@
         @empty
            <li>No children</li>
         @endforelse
-    </ul>
+    </ul> -->
 @endsection

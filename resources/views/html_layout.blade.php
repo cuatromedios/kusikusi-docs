@@ -17,7 +17,7 @@
         @if(isset($website))
             {!! $entity->model === 'home' ? '<h1>' : '<p>' !!}
             @if(isset($logo))
-                <img src="{{ $logo->logo }}" alt="{{ $website->title }}" />
+                <a href="/"><img src="{{ $logo->logo }}" alt="{{ $website->title }}" /></a>
             @endif
             {!! $entity->model === 'home' ? '</h1>' : '</p>' !!}
         @endif
@@ -37,6 +37,7 @@
 </main>
 <footer class="container">
     <p>A kusikusi website.</p>
+    {!!$website->footer!!}
     @include('html.partials.langlist')
 </footer>
 @include('html.partials.debug')

@@ -1,0 +1,20 @@
+@extends('html_layout')
+@section('title', $entity->title)
+@section('description', $entity->description)
+@section('main')
+    <h1>{{ $entity->title }}</h1>
+    <em>{{ $entity->description }}</em>
+<div>
+    <ul>
+        @forelse ($children as $child)
+           <li>
+               <a href="{{ $child->route }}.html">
+                   @if($child->medium)<img src="{{ $child->medium->icon }}" alt="{{ $child->medium->title }}">@endif
+                   {{ $child->title }}
+               </a></li>
+        @empty
+           <li>No children</li>
+        @endforelse
+    </ul>
+</div>
+@endsection

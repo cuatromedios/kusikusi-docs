@@ -20,6 +20,10 @@ class HtmlController extends Controller
     {
         $result = $this->common($request, $entity);
         $result['children'] = $this->children($request, $entity);
+        $result['feature'] = EntityModel::select("*")
+            ->where("id", "feature")
+            ->appendContents(["title","description"], $request->lang)
+            ->first();
         return view('html.'.$entity->view, $result);
     }
     public function section(Request $request, EntityModel $entity)
@@ -28,8 +32,26 @@ class HtmlController extends Controller
         $result['children'] = $this->children($request, $entity);
         return view('html.'.$entity->view, $result);
     }
-
     public function page(Request $request, EntityModel $entity, $lang)
+    {
+        $result = $this->common($request, $entity);
+        $result['docs'] = $result['media']->where('properties.isDocument');
+        $result['images'] = $result['media']->where('properties.isWebImage');
+        return view('html.'.$entity->view, $result);
+    }
+    public function feature(Request $request, EntityModel $entity)
+    {
+        $result = $this->common($request, $entity);
+        $result['children'] = $this->children($request, $entity);
+        return view('html.'.$entity->view, $result);
+    }
+    public function documentation(Request $request, EntityModel $entity)
+    {
+        $result = $this->common($request, $entity);
+        $result['children'] = $this->children($request, $entity);
+        return view('html.'.$entity->view, $result);
+    }
+    public function version(Request $request, EntityModel $entity, $lang)
     {
         $result = $this->common($request, $entity);
         $result['docs'] = $result['media']->where('properties.isDocument');
@@ -60,7 +82,7 @@ class HtmlController extends Controller
             "lang" => $request->lang,
             "entity" => $currentEntity,
             "website" => Website::select('id', 'properties')
-                ->appendContents(['title'], $request->lang)
+                ->appendContents(['title','footer'], $request->lang)
                 ->appendMedium('social')
                 ->find('website'),
             "logo" => Medium::select('id', 'properties')

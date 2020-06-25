@@ -14,7 +14,7 @@
  */
 
 return [
-    "langs" => ["en"], // The first lang will be the default each time the entity is loaded
+    "langs" => ["en","es"], // The first lang will be the default each time the entity is loaded
     "app_url" => env('APP_URL', 'http://127.0.0.1:8000'), // Very important to change this in your .env file or here. This will be used for canonical urls and social share assets
     "cache_method" => "lazy", // (TBD) lazy | eager | none Lazy: The entities wait to be called to get processed. Eager: Entities views get processed on save. None: No cache.
     "page_size" => 25, // Default page size if not defined in the call
@@ -31,13 +31,15 @@ return [
                     "components" => [
                         ["component" => "nq-input", "value" => "contents.title", "label" => "contents.title", "props" => ["size" => "xl"], "rules" => [["required"]]],
                         ["component" => "html-editor", "value" => "contents.welcome", "label" => "contents.description", "props" => []],
+                        ["component" => "nq-input", "value" => "properties.codesample", "label" => "Codesample"],
+                        ["component" => "nq-input", "value" => "properties.codeinstallation", "label" => "Codeinstallation"],
                         ["component" => "slug", "value" => "contents.slug", "label" => "contents.slug"]
                     ],
                 ],
                 [
                     "label" => "contents.children",
                     "components" => [
-                        ["component" => "children", "props" => ["models" => ["section", "page"], "order_by" => "contents.title", "tags" => ["menu", "footer"]]]
+                        ["component" => "children", "props" => ["models" => ["section", "page", "documentation", "feature"], "order_by" => "contents.title", "tags" => ["menu", "footer"]]]
                     ],
                 ],
                 [
@@ -51,6 +53,46 @@ return [
         "section" => [
             "icon" => "folder",
             "name" => "models.section",
+            "form" => [
+                [
+                    "label" => "contents.contents",
+                    "components" => [
+                        ["component" => "nq-input", "value" => "contents.title", "label" => "contents.title", "props" => ["size" => "xl"], "rules" => [["required"]]],
+                        ["component" => "nq-input", "value" => "contents.description", "label" => "contents.description"],
+                        ["component" => "slug", "value" => "contents.slug", "label" => "contents.slug"]
+                    ],
+                ],
+                [
+                    "label" => "contents.children",
+                    "components" => [
+                        ["component" => "children", "props" => ["models" => ["page"]]]
+                    ],
+                ]
+            ]
+        ],
+        "documentation" => [
+            "icon" => "folder",
+            "name" => "Documentation",
+            "form" => [
+                [
+                    "label" => "contents.contents",
+                    "components" => [
+                        ["component" => "nq-input", "value" => "contents.title", "label" => "contents.title", "props" => ["size" => "xl"], "rules" => [["required"]]],
+                        ["component" => "nq-input", "value" => "contents.description", "label" => "contents.description"],
+                        ["component" => "slug", "value" => "contents.slug", "label" => "contents.slug"]
+                    ],
+                ],
+                [
+                    "label" => "contents.children",
+                    "components" => [
+                        ["component" => "children", "props" => ["models" => ["version"]]]
+                    ],
+                ]
+            ]
+        ],
+        "feature" => [
+            "icon" => "folder",
+            "name" => "Feature",
             "form" => [
                 [
                     "label" => "contents.contents",
@@ -89,6 +131,27 @@ return [
                 ]
             ]
         ],
+        "version" => [
+            "icon" => "description",
+            "name" => "Version",
+            "form" => [
+                [
+                    "label" => "contents.contents",
+                    "components" => [
+                        ["component" => "nq-input", "value" => "contents.title", "label" => "contents.title", "props" => ["size" => "xl"], "rules" => [["required"]]],
+                        ["component" => "nq-input", "value" => "contents.description", "label" => "contents.description"],
+                        ["component" => "html-editor", "value" => "contents.body", "label" => "Body"],
+                        ["component" => "slug", "value" => "contents.slug", "label" => "contents.slug"]
+                    ],
+                ],
+                [
+                    "label" => "contents.media",
+                    "components" => [
+                        ["component" => "media", "props" => ["allowed" => [ "webImages", "webVideos", 'xhr' ], "tags" => ["icon", "social", "gallery"]]]
+                    ],
+                ]
+            ]
+        ],
         "medium" => [
             "icon" => "insert_drive_file",
             "name" => "models.medium",
@@ -109,7 +172,11 @@ return [
                 [
                     "label" => "contents.contents",
                     "components" => [
-                        ["component" => "nq-input", "value" => "contents.title", "label" => "contents.title", "props" => ["size" => "xl"], "rules" => [["required"]]]
+                        ["component" => "nq-input", "value" => "contents.title", "label" => "contents.title", "props" => ["size" => "xl"], "rules" => [["required"]]],
+                        ["component" => "nq-input", "value" => "properties.github", "label" => "Github"],
+                        ["component" => "nq-input", "value" => "properties.donate", "label" => "Donation URL"],
+                        ["component" => "nq-input", "value" => "properties.cuatromedios", "label" => "Cuatromedios URL"],
+                        ["component" => "html-editor", "value" => "contents.footer", "label" => "Footer"],
                     ],
                 ],
                 [
